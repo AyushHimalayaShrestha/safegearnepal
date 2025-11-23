@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, ProductImage
+from .models import Product,ProductImage
 # Register your models here.
 class ProductImageInLine(admin.TabularInline):
     model = ProductImage
@@ -11,3 +11,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('category','created_at')
     search_fields = ('name','description')
     inlines = [ProductImageInLine]
+
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    list_display =('product','image')
