@@ -21,3 +21,9 @@ class SupplierAdmin(admin.ModelAdmin):
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
     list_display =('product','image')
+
+@admin.register(Tender)
+class TenderAdmin(admin.ModelAdmin):
+    list_display = ('title','publish_date','end_date')
+    search_fields = ('title')
+
