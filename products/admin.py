@@ -27,3 +27,7 @@ class TenderAdmin(admin.ModelAdmin):
     list_display = ('title','publish_date','end_date')
     search_fields = ('title')
 
+@admin.register(Inquiry)
+class TenderAdmin(admin.ModelAdmin):
+    list_display =('name','email','phone','product','created_at')
+    search_fields = ('name','email','phone')
