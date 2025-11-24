@@ -7,7 +7,7 @@ class ProductImageInLine(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display =('name','category','price', 'created_at')
+    list_display =('name','category','price_npr', 'created_at')
     list_filter = ('category','created_at')
     search_fields = ('name','description')
     inlines = [ProductImageInLine]
@@ -25,7 +25,7 @@ class ProductImageAdmin(admin.ModelAdmin):
 @admin.register(Tender)
 class TenderAdmin(admin.ModelAdmin):
     list_display = ('title','publish_date','end_date')
-    search_fields = ('title')
+    search_fields = ('title',)
 
 @admin.register(Inquiry)
 class TenderAdmin(admin.ModelAdmin):
