@@ -1,0 +1,68 @@
+{% extends "products/base.html" %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="display-4 fw-bold">SafeGear Nepal</h1>
+        <p class="lead mt-3">
+            Importer & Supplier of Premium Road Safety Equipment in Nepal
+        </p>
+        <a href="#products" class="btn btn-main mt-3">View Products</a>
+    </div>
+</section>
+
+
+<!-- PRODUCTS SECTION -->
+<section id="products" class="py-5">
+    <div class="container">
+        <h2 class="section-title">Our Top Products</h2>
+
+        <div class="row g-4">
+
+            {% for product in products %}
+            <div class="col-md-4">
+                <div class="product-card">
+                    <img 
+                        src="{{ product.images.first.image.url }}" 
+                        class="img-fluid rounded mb-3" 
+                        alt="{{ product.name }}"
+                        style="height: 200px; object-fit: cover; width: 100%;"
+                    >
+                    <h4>{{ product.name }}</h4>
+                    <p class="text-info">{{ product.category }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>No products added yet.</p>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ABOUT SECTION -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="section-title">About Us</h2>
+        <p style="max-width: 700px; margin: auto;">
+            We specialize in importing and distributing certified road safety gear 
+            including barricades, cones, safety jackets, signboards, reflectors, 
+            and LED traffic lights.  
+            Professional service • High-quality products • Fast delivery
+        </p>
+    </div>
+</section>
+
+
+<!-- CONTACT CTA -->
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="section-title">Contact Us</h2>
+        <a href="/contact" class="btn btn-main">Send Inquiry</a>
+    </div>
+</section>
+
+{% endblock %}
