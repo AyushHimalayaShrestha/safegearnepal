@@ -13,6 +13,19 @@ class Supplier(models.Model):
 
     def __str__(self):
         return self.name
+    
+# Category
+class Category(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+    slug = models.SlugField(max_length=140, unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
 
 
 # Product Model
@@ -73,10 +86,4 @@ class Inquiry(models.Model):
         return f"Inquiry from {self.name}"
 
 
-# Product Image Model
-class ProductImage(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='products/gallery/')
 
-    def __str__(self):
-        return f"Image for {self.product.name}"
