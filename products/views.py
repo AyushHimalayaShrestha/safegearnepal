@@ -1,5 +1,5 @@
 from django.shortcuts import render,get_object_or_404
-from .models import Product
+from .models import Product,ProductImage
 # Create your views here.
 
 def home(request):
@@ -12,7 +12,9 @@ def product_list(request):
 
 def product_detail(request, id):
     product = get_object_or_404(Product, id=id)
+    image = ProductImage.objects.filter(product=product)
     return render(request, 'products/product_detail.html',{
         'product':product,
+        
         })
 
