@@ -70,7 +70,7 @@
     </div>
 </section>
 
-<!-- FEATURED PRODUCTS -->
+<!-- FEATURED PRODUCTS - FIXED ALIGNMENT -->
 <section class="py-20 bg-slate-900">
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-16">
@@ -83,47 +83,68 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for product in products %}
-            <a href="{% url 'products:product_detail' product.id %}" 
-               class="group block bg-slate-800/60 backdrop-blur-lg rounded-2xl overflow-hidden shadow-lg border border-slate-700 hover:border-yellow-400 transition-all duration-300 hover:-translate-y-2">
+            <div class="group bg-slate-800/60 backdrop-blur-lg rounded-2xl overflow-hidden shadow-lg border border-slate-700 hover:border-yellow-400 transition-all duration-300 hover:-translate-y-2 flex flex-col h-full">
                 
-                <!-- PRODUCT IMAGE -->
-                <div class="h-64 w-full overflow-hidden bg-slate-700">
+                <!-- PRODUCT IMAGE - FIXED HEIGHT -->
+                <div class="relative h-64 w-full overflow-hidden bg-slate-700 flex-shrink-0">
                     {% if product.image %}
                     <img src="{{ product.image.url }}"
-                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                         class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                          alt="{{ product.name }}">
                     {% else %}
-                    <div class="w-full h-full flex items-center justify-center text-slate-400">
+                    <div class="absolute inset-0 flex items-center justify-center text-slate-400">
                         <i class="fas fa-image text-4xl"></i>
                     </div>
                     {% endif %}
                 </div>
 
-                <!-- PRODUCT INFO -->
-                <div class="p-6">
+                <!-- PRODUCT INFO - FLEX COLUMN FOR ALIGNMENT -->
+                <div class="p-6 flex flex-col flex-grow">
                     <!-- CATEGORY -->
                     {% if product.category %}
-                    <span class="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-3 py-1 rounded-full text-xs font-medium mb-3">
+                    <span class="inline-block bg-gradient-to-r from-blue-600 to-blue-800 text-white px-3 py-1 rounded-full text-xs font-medium mb-3 self-start">
                         {{ product.category.name }}
                     </span>
                     {% endif %}
 
                     <!-- PRODUCT NAME -->
-                    <h4 class="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                    <h4 class="text-xl font-bold text-white mb-3 group-hover:text-yellow-400 transition-colors duration-300">
                         {{ product.name }}
                     </h4>
 
-                    <!-- PRICE -->
-                    <div class="flex items-center justify-between mt-4">
+                    <!-- PRODUCT DESCRIPTION - IF YOU HAVE ONE -->
+                    {% if product.specs %}
+                    <div class="mb-4 flex-grow">
+                        <p class="text-slate-300 text-sm line-clamp-2">
+                            {{ product.specs|truncatewords:15 }}
+                        </p>
+                    </div>
+                    {% else %}
+                    <div class="mb-4 flex-grow">
+                        <p class="text-slate-300 text-sm">
+                            High-visibility, durable construction for optimal road safety performance.
+                        </p>
+                    </div>
+                    {% endif %}
+
+                    <!-- PRICE AND BUTTON - BOTTOM ALIGNED -->
+                    <div class="flex items-center justify-between mt-auto pt-4">
                         <span class="text-2xl font-bold text-yellow-400">
                             Rs. {{ product.price_npr }}
                         </span>
-                        <span class="px-4 py-2 text-sm font-medium bg-slate-700 text-slate-200 rounded-lg group-hover:bg-yellow-500 group-hover:text-black transition-all">
-                            View Details
-                        </span>
+                        <div class="flex space-x-2">
+                            <a href="{% url 'products:product_detail' product.id %}" 
+                               class="px-4 py-2 text-sm font-medium bg-slate-700 text-slate-200 rounded-lg hover:bg-blue-600 hover:text-white transition-all">
+                                Details
+                            </a>
+                            <a href="/contact?product={{ product.name|urlencode }}" 
+                               class="px-4 py-2 text-sm font-medium bg-slate-700 text-slate-200 rounded-lg hover:bg-yellow-500 hover:text-black transition-all">
+                                Contact
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </a>
+            </div>
             {% empty %}
             <!-- NO PRODUCTS MESSAGE -->
             <div class="col-span-full text-center py-16">
@@ -151,124 +172,60 @@
     </div>
 </section>
 
-<!-- FEATURES SECTION -->
-<section class="py-20 bg-slate-800">
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-                <span class="inline-block text-yellow-400 font-semibold text-lg mb-3">WHY CHOOSE US</span>
-                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
-                    Your Trusted Road Safety Partner in Nepal
-                </h2>
-                <p class="text-lg text-slate-300 mb-8">
-                    With years of experience and commitment to quality, we provide comprehensive road safety solutions that meet international standards and local requirements.
-                </p>
-                
-                <div class="space-y-6">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-certificate text-green-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold text-white mb-2">ISO Certified Quality</h4>
-                            <p class="text-slate-300">All our products meet international quality standards and certifications.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-shipping-fast text-blue-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold text-white mb-2">Fast Nationwide Delivery</h4>
-                            <p class="text-slate-300">Quick and reliable delivery services across all major cities in Nepal.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <i class="fas fa-headset text-orange-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-semibold text-white mb-2">Expert Support Team</h4>
-                            <p class="text-slate-300">Dedicated professionals ready to assist you with technical guidance and support.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="relative">
-                <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                    <img 
-                        src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-                        alt="Road Safety Equipment"
-                        class="w-full h-[600px] object-cover"
-                    >
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
-                
-                <!-- Floating Card -->
-                <div class="absolute -bottom-6 -left-6 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-2xl shadow-2xl p-6 max-w-xs">
-                    <div class="text-3xl font-bold mb-2">500+</div>
-                    <div class="font-semibold">Projects Completed</div>
-                    <div class="text-blue-100 text-sm mt-1">Across Nepal with 100% client satisfaction</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CTA SECTION -->
+<!-- CTA SECTION - UPDATED WITH DIRECT CONTACT -->
 <section class="py-20 bg-gradient-to-r from-slate-900 to-blue-900 relative overflow-hidden">
-    <!-- Background Pattern
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.1\"%3E%3Ccircle cx=\"30\" cy=\"30\" r=\"1\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-    </div> -->
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-5">
+        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                    <circle cx="30" cy="30" r="1" fill="#ffffff" fill-opacity="0.2"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+    </div>
     
-    <div class="relative max-w-7xl mx-auto px-4 text-center">
+    <div class="relative max-w-4xl mx-auto px-4 text-center">
         <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
-            Ready to Enhance Road Safety?
+            Get Your Road Safety Equipment
         </h2>
-        <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Get in touch with our experts for customized solutions and competitive pricing. 
-            Let's work together to make Nepal's roads safer.
+        <p class="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
+            Contact me directly for product inquiries, quotations, and expert advice on road safety solutions.
         </p>
         
+        <!-- SINGLE CALL BUTTON -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="/contact" class="group bg-white text-gray-900 hover:bg-gray-100 font-semibold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg inline-flex items-center gap-2">
+            <a href="tel:+977-9851278352" 
+               class="group bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl inline-flex items-center gap-3 text-lg w-full sm:w-auto justify-center">
                 <i class="fas fa-phone"></i>
-                Contact Sales Team
+                Call: +977-9851278352
             </a>
-            <a href="tel:+977-1-XXXXXXX" class="group border-2 border-white/30 hover:border-white/50 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:bg-white/10 backdrop-blur-sm inline-flex items-center gap-2">
-                <i class="fas fa-mobile-alt"></i>
-                Call Now: +977-1-XXXXXXX
+            
+            <a href="mailto:himalayaroadsafety@gmail.com" 
+               class="group border-2 border-white/30 hover:border-white/50 text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:bg-white/10 backdrop-blur-sm inline-flex items-center gap-3 w-full sm:w-auto justify-center">
+                <i class="fas fa-envelope"></i>
+                Email Me
             </a>
         </div>
         
-        <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            <div class="text-center">
-                <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-certificate text-white text-2xl"></i>
+        <!-- QUICK INFO -->
+        <div class="mt-12">
+            <div class="inline-flex items-center gap-6 bg-blue-900/30 border border-blue-700/50 rounded-2xl px-6 py-4">
+                <div class="text-center">
+                    <div class="text-xl font-bold text-white">Direct Contact</div>
+                    <div class="text-blue-200 text-sm">No middlemen</div>
                 </div>
-                <div class="text-white font-semibold">Certified Quality</div>
-            </div>
-            <div class="text-center">
-                <div class="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-shipping-fast text-white text-2xl"></i>
+                <div class="h-8 w-px bg-blue-600"></div>
+                <div class="text-center">
+                    <div class="text-xl font-bold text-white">Quick Quote</div>
+                    <div class="text-blue-200 text-sm">Within 24 hours</div>
                 </div>
-                <div class="text-white font-semibold">Fast Delivery</div>
-            </div>
-            <div class="text-center">
-                <div class="w-16 h-16 bg-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-tag text-white text-2xl"></i>
+                <div class="h-8 w-px bg-blue-600"></div>
+                <div class="text-center">
+                    <div class="text-xl font-bold text-white">Expert Advice</div>
+                    <div class="text-blue-200 text-sm">Personal guidance</div>
                 </div>
-                <div class="text-white font-semibold">Competitive Pricing</div>
-            </div>
-            <div class="text-center">
-                <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-headset text-white text-2xl"></i>
-                </div>
-                <div class="text-white font-semibold">24/7 Support</div>
             </div>
         </div>
     </div>
