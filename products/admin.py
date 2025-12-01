@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import Product, Tender, Inquiry, Category, ProductImage
-# Supplier removed - no longer needed
 
 # Register your models here.
 
@@ -18,7 +17,6 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('name', 'description')
 
 
-# SupplierAdmin REMOVED - No longer needed
 
 
 @admin.register(Tender)
