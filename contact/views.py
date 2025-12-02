@@ -21,7 +21,7 @@ def contact_page(request):
             subject,
             full_message,
             settings.DEFAULT_FROM_EMAIL,
-            ['yourbusiness@mail.com'],  # your inbox
+            ['himalayaroadsafety@gmail.com'],  # your inbox
         )
 
         message_sent = True
