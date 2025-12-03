@@ -1,0 +1,97 @@
+{% extends "products/base.html" %}
+{% extends 'base.html' %}
+
+{% block title %}Login - Himalaya Road Safety{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto mt-10">
+  <div class="bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-700">
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-yellow-400 mb-2">Welcome Back</h2>
+      <p class="text-slate-400">Sign in to your account</p>
+    </div>
+
+    <!-- Messages -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="mb-6 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-900/50 border border-red-700 text-red-200{% else %}bg-green-900/50 border border-green-700 text-green-200{% endif %}">
+          <div class="flex items-center">
+            <span class="mr-2">{% if message.tags == 'error' %}⚠️{% else %}✅{% endif %}</span>
+            <span>{{ message }}</span>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <!-- Login Form -->
+    <form method="post" class="space-y-6">
+      {% csrf_token %}
+      
+      <!-- Username Field -->
+      <div>
+        <label for="username" class="block text-sm font-medium text-slate-300 mb-2">Username</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-slate-500">👤</span>
+          </div>
+          <input type="text" 
+                 name="username" 
+                 id="username" 
+                 required
+                 class="w-full pl-10 pr-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition duration-200"
+                 placeholder="Enter your username">
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-slate-300 mb-2">Password</label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-slate-500">🔒</span>
+          </div>
+          <input type="password" 
+                 name="password" 
+                 id="password" 
+                 required
+                 class="w-full pl-10 pr-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition duration-200"
+                 placeholder="Enter your password">
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" 
+              class="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-bold py-3 px-4 rounded-lg transition duration-200 transform hover:-translate-y-0.5 hover:shadow-lg">
+        Sign In
+      </button>
+    </form>
+
+    <!-- Divider -->
+    <div class="my-8 flex items-center">
+      <div class="flex-grow border-t border-slate-700"></div>
+      <span class="mx-4 text-slate-500 text-sm">OR</span>
+      <div class="flex-grow border-t border-slate-700"></div>
+    </div>
+
+    <!-- Register Link -->
+    <div class="text-center">
+      <p class="text-slate-400">
+        Don't have an account?
+        <a href="{% url 'accounts:register' %}" 
+           class="text-yellow-400 hover:text-yellow-300 font-semibold ml-1 transition duration-200 hover:underline">
+          Create one now
+        </a>
+      </p>
+    </div>
+
+    <!-- Back to Home -->
+    <div class="mt-8 text-center">
+      <a href="{% url 'products:home' %}" 
+         class="text-slate-400 hover:text-slate-300 text-sm transition duration-200 inline-flex items-center">
+        ← Back to home
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
