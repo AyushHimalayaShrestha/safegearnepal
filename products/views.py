@@ -17,5 +17,7 @@ def product_detail(request, id):
         'product':product,
         
         })
-def about_page(request):
-    return render(request,'products/about.html')
+def about(request):
+    products=Product.objects.all()
+    return render(request,"products/about.html",{"products":products})
+
